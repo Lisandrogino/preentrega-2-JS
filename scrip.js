@@ -1,86 +1,62 @@
-const cantidadTurnos = 10;
 
+class Vehiculousuario{
 
-
-class turnero {
-
-    constructor(id, nombreCliente, vehiculo, trabajoARealizar, turnoFecha, turnoHora){
-
-        this.id = id
-        this.nombreCliente = nombreCliente;
-        this.vehiculo = vehiculo;
-        this.trabajoARealizar = trabajoARealizar;
-        this.turnoFecha = turnoFecha;
-        this.turnoHora = turnoHora;
-
+    constructor(id, tipoUsario, nombre, tipoVehiculo, contacto, mail) {
+        this.id=id
+        this.tipoUsario = tipoUsario
+        this.nombre = nombre;
+        this.tipoVehiculo = tipoVehiculo;
+        this.contacto = contacto;
+        this.mail = mail;
     }
-
-    
-    // METRODO DE RESERVA DE TURNOS - ESTABLECE LOS DÌAS EN LOS QUE SE PUEDE SACAR TURBI
-  
-            reservarTurno() {
-
-                const turnoFecha = prompt("Ingrese el día del turno");
-                const turnoHora = parseInt(prompt("Ingrese la hora en formarto de 0 a 18"));
-
-            if (turnoFecha === "sabado" && (turnoHora < 7 || turnoHora > 14)) {
-            alert("Adolfo Car Detaile atiende de 8.00 a 14.00 hs");
-
-            } else if (turnoFecha === "domingo") {
-            alert("Adolfo Car Detarile no trabaja los domingos.");
-            }
-            
-        else {
-
-            this.turnoFecha = turnoFecha;
-            this.turnoHora = turnoHora;
-
-            alert("Su turno está reservado para el " + turnoFecha + " a las " + turnoHora + ":00.");
-
-        }
-                             }
-
-    // METODO DE TRABABOS Y COSTOS                             
-
-            trabajoYCosto(){
-
-                const trabajoARealizar= parseInt(prompt("Selecciona un Vehìculo  lavar:  1- Automóvil  2- Utilitario  3-  Camioneta"))
-
-                switch(trabajoARealizar){
-    
-                    case 1:
-    
-                        let precioAuto = 3000;
-                        alert("El costo del lavado es $3000, sì nos pagas en el local el precio es " + precioConDescuento(precioAuto));
-                    break
-    
-                    case 2: 
-                    
-                        let precioUtilitario = 4000;
-                        alert("El costo del lavado es $4000, sì nos pagas en el local el precio es " + precioConDescuento(precioUtilitario));
-                        
-                    break
-    
-                    case 3:
-    
-                        let precioCamioneta = 5000;
-                        alert("El costo del lavado es $5000, sì nos pagas en el local el precio es " + precioConDescuento(precioCamioneta))
-        
-                    break  
-    
-                    default:
-    
-                        alert("La opción no es válida, ingresa una opción del menu.")
-    
-                    break 
-                    
-    }
-    
-                 
-            }        
-            
-    
 
 }
 
-        const preciocConDescuento= function(precio) {return precio - (precio * 0.10)};
+const turnosClientes = []
+
+const id = parseInt(prompt("Ingrese el ID del vehículo:"));
+const tipoUsario = prompt("Ingrese el tipo de usuario(empresa/particular):");
+const nombre = prompt("Ingrese el nombre:");
+const tipoVehiculo = prompt("Ingrese el tipo de vehículo(automóvil/utilitario/camioneta):");
+const contacto = parseInt(prompt("Ingrese el celular:"));
+const mail = prompt("Ingrese el correo electrónico:");
+
+turnosClientes.push(new Vehiculousuario(id, tipoUsario, nombre, tipoVehiculo, contacto, mail));
+
+turnosClientes.push(new Vehiculousuario(1, "empresa", "Nation SA", "Peugeot 307", 3492605378,"nationsa@gmail.com"));
+turnosClientes.push(new Vehiculousuario(2, "particular","Katia Alemann", "BMW", 3492605378, "nationsa@gmail.com"));
+turnosClientes.push(new Vehiculousuario(3, "particular","Alain Delon", "Jaguar", 3492456098, "delon@gmail.com"));
+turnosClientes.push(new Vehiculousuario(4, "particular","James Deen", "Ferrari", 3492278943, "deam1931@gmail.com"));
+turnosClientes.push(new Vehiculousuario(5, "empresa","Nation SA", "VW", 3492605378, "nationsa@gmail.com"));
+turnosClientes.push(new Vehiculousuario(6, "particular","Sir Patrick stuar", "Uss Enterprise", 3492605378, "federation@gmail.com"));
+turnosClientes.push(new Vehiculousuario(7, "particular","Q", "Fiat", 3492605378, "q@gmail.com"));
+
+
+console.log(turnosClientes.length)
+console.log(turnosClientes)
+turnosClientes.pop()
+console.log(turnosClientes.length)
+
+turnosClientes.push(new Vehiculousuario(8, "empresa","Long Automotores SA", "Ford Focus One", 3492135789,"nationsa@gmail.com"));
+
+console.log(turnosClientes.length)
+
+const buscarUsuario = turnosClientes.find((el) => el.nombre==="Alain Delon");
+console.log(buscarUsuario)
+
+const filtrarEmpresas = turnosClientes.filter((el) =>el.tipoUsario.includes("empresa"));
+console.log(filtrarEmpresas)
+
+
+function verificarVehiculoEnTurnero(tipoVehiculo) {
+    return turnosClientes.some((el) => el.tipoVehiculo === tipoVehiculo);
+  }
+
+  console.log(verificarVehiculoEnTurnero("BMW"))
+
+  function obtenerNombresClientes() {
+    return turnosClientes.map((el) => el.nombre);
+  }  
+
+  console.log(obtenerNombresClientes())
+
